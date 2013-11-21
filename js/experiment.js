@@ -47,7 +47,7 @@ $(document).ready(function(){
 });
 function endExperiment() {
 	$("iframe").hide();
-	#("#timer").hide();
+	$("#timer").hide();
 	$("#end-message").show();
 }
 function timer() {
