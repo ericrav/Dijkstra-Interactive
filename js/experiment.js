@@ -39,6 +39,7 @@ $(document).ready(function(){
 			$("button").hide();
 			$("iframe").show();
 			$("#timer").show();
+			timer();
 			counter = setInterval(timer,1000);
 		}
 
