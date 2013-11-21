@@ -2,13 +2,14 @@ var group, counter;
 var time = 300;
 var gotoExperimentNext = false;
 $(document).ready(function(){
+	console.log("latest 1");
 	$.get("http://www.random.org/integers/?num=1&min=1&max=3&col=1&base=10&format=plain&rnd=new", function(data){
 		group = parseInt(data);
 		$("#group").text(group);
 		$(".next").show();
 		switch(group) {
 				case 1: //notes
-				$("iframe").attr("src","");
+				$("iframe").attr("src","http://ericrav.github.io/Dijkstra-Interactive/notes.pdf");
 				break;
 				case 2: //video
 				$("iframe").attr("src","");
