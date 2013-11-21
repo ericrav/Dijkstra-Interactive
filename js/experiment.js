@@ -8,14 +8,13 @@ $(document).ready(function(){
 		$(".next").show();
 		switch(group) {
 				case 1: //notes
-				$("iframe").attr("src","")
+				$("iframe").attr("src","");
 				break;
 				case 2: //video
-				$("iframe").attr("src","http://ericrav.github.io/Dijkstra-Interactive/Dijkstras_Algorithm.mp4")
-				$("iframe").contents().find("video").get(0).pause();
+				$("iframe").attr("src","");
 				break;
 				case 3: //interactive
-				$("iframe").attr("src","http://ericrav.github.io/Dijkstra-Interactive/")
+				$("iframe").attr("src","http://ericrav.github.io/Dijkstra-Interactive/");
 				break;
 			}
 	});
@@ -40,7 +39,7 @@ $(document).ready(function(){
 			$("button").hide();
 			$("iframe").show();
 			$("#timer").show();
-			if (group==2) $("iframe").contents().find("video").get(0).play();
+			if (group==2) $("iframe").attr("src","http://ericrav.github.io/Dijkstra-Interactive/Dijkstras_Algorithm.mp4");
 			timer();
 			counter = setInterval(timer,1000);
 		}
