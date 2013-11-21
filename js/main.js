@@ -255,6 +255,8 @@
                   } else {
                     alert("You've already calculated this tentative distance.")
                   }
+                } else if (visitedNodes.indexOf(node) != -1) {
+                  alert("You do not need to calculate the distance to nodes you've already found the shortest path to.")
                 } else {
                   alert("This point doesn't connect to a point that you've found the shortest distance to.\nYou can only calculate the distance to a point that is connected to one of the red points.")
                 }
