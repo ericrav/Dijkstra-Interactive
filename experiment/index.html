@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dijkstra's Algorithm</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" ></script>
+	<script src="../js/arbor.js"></script>
+	<script src="../js/arbor-tween.js"></script>
+	<script src="../js/experiment.js"></script>
+	<style type="text/css">
+		#group{
+			position: absolute;
+			top: 15px;
+			right: 15px;
+			font-size: 16px;
+			border: 1px solid black;
+			padding: 2px;
+		}
+		#timer{
+			position: absolute;
+			top: 10px;
+			right: 60px;
+			font-size: 24px;
+			border: 1px solid black;
+			padding: 4px;
+		}
+
+		p {
+			max-width:1000px; 
+		}
+		iframe, button.next, .condition-instructions, #timer, #end-message {
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<p id="group"></p>
+	<p id="timer"></p>
+	<p id="instructions">
+	<strong>Instructions:</strong>
+	Today you will be studying Dijkstra's algorithm, a graph theory search algorithm which is a shortest path algorithm from one point to another. The purpose of this study is to measure how effective various learning methods are. Afterwards, you will be tested on Dijkstra's algorithm. You are not allowed to ask questions or speak to anyone.</p>
+
+	<p class="condition-instructions" id="notes-instructions">You will be studying Dijkstra's algorithm by reading the material in front of you. You may write on the paper provided, but you will not be able to use any notes that you take on the test. You will have five minutes to learn the material to the best of your ability. Do you have any questions before we begin? You may begin now.</p>
+	<p class="condition-instructions" id="video-instructions">You will be studying Dijkstra's algorithm by watching a video. You may write on the paper provided, but you will not be able to use any notes that you take on the test. You will have five minutes to learn the material to the best of your ability. You may rewind if needed, but you will still only have five minutes total. Do you have any questions before we begin? You may begin now.</p>
+	<p class="condition-instructions" id="interactive-instructions">You will be studying Dijkstra's algorithm from an interactive tutorial. You may write on the paper provided, but you will not be able to use any notes that you take on the test. You will have five minutes to learn the material to the best of your ability. Do you have any questions before we begin? You may begin now.</p>
+	<p id="end-message">Time is up, please put your pencils down. Now you will be taking a test so see how well you learned Dijkstra’s algorithm. You will not be able to use any notes that you took previously. You will have five minutes to complete the test. Do you have any questions before we begin? You may begin now.</p>
+	<button class="next">Click to Continue</button>
+	<iframe width="1000" height="700" src="http://ericrav.github.io/Dijkstra-Interactive/"></iframe>
+</body>
+</html>

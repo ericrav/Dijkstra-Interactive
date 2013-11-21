@@ -308,28 +308,6 @@
                e.target.style.cursor = 'default'
              }
             }
-          // dragged:function(e){
-          //   var pos = $(canvas).offset();
-          //   var s = arbor.Point(e.pageX-pos.left, e.pageY-pos.top)
-
-          //   if (dragged && dragged.node !== null){
-          //     var p = particleSystem.fromScreen(s)
-          //     dragged.node.p = p
-          //   }
-
-          //   return false
-          // },
-
-          // dropped:function(e){
-          //   if (dragged===null || dragged.node===undefined) return
-          //   if (dragged.node !== null) dragged.node.fixed = false
-          //   dragged.node.tempMass = 1000
-          //   dragged = null
-          //   $(canvas).unbind('mousemove', handler.dragged)
-          //   $(window).unbind('mouseup', handler.dropped)
-          //   _mouseP = null
-          //   return false
-          // }
         }
         
         // start listening
