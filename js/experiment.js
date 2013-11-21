@@ -46,7 +46,8 @@ $(document).ready(function(){
 	});
 });
 function endExperiment() {
-	$("#iframe").hide();
+	$("iframe").hide();
+	#("#timer").hide();
 	$("#end-message").show();
 }
 function timer() {
@@ -57,5 +58,6 @@ function timer() {
 	time--;
 	if (time==0) {
 		endExperiment();
+		clearInterval(counter);
 	}
 }
