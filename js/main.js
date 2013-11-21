@@ -253,10 +253,10 @@
                       alert("That's not right.")
                     }
                   } else {
-                    alert("You've already calculated this tentative length.")
+                    alert("You've already calculated this tentative distance.")
                   }
                 } else {
-                  alert("no")
+                  alert("This point doesn't connect to a point that you've found the shortest distance to.\nYou can only calculate the distance to a point that is connected to one of the red points.")
                 }
                 break;
 
