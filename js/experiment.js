@@ -7,13 +7,14 @@ $(document).ready(function(){
 		$("#group").text(group);
 		$(".next").show();
 		switch(group) {
-				case 1:
+				case 1: //notes
 				$("iframe").attr("src","")
 				break;
-				case 2:
-				$("iframe").attr("src","")
+				case 2: //video
+				$("iframe").attr("src","http://ericrav.github.io/Dijkstra-Interactive/Dijkstras_Algorithm.mp4")
+				$("iframe").contents().find("video").pause();
 				break;
-				case 3:
+				case 3: //interactive
 				$("iframe").attr("src","http://ericrav.github.io/Dijkstra-Interactive/")
 				break;
 			}
@@ -39,6 +40,7 @@ $(document).ready(function(){
 			$("button").hide();
 			$("iframe").show();
 			$("#timer").show();
+			if (group==2) $("iframe").contents().find("video").play();
 			timer();
 			counter = setInterval(timer,1000);
 		}
