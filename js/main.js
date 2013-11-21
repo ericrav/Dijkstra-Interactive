@@ -9,12 +9,16 @@
     var canvas = $(canvas).get(0)
     var ctx = canvas.getContext("2d");
     var particleSystem
-    var message = "Select the Initial Node A."
+    var message = ""
+    var message2 = ""
     var phaseCalculatedNodes = []
     var phaseNeededNodes = []
     var w = 10
+        // -2 : Intro to Dijkstra's
+        // -1 : Setting up graph
         // 0 : Select the initial node
         // 1 : Find new tentative weights
+        // 2 : Select the new known node and go to step 0
 
     var that = {
       init:function(system){
@@ -60,9 +64,21 @@
 
       nextStep:function(){
         switch(phase){
+          case -2:
+          phase = -1
+          message = "Each point is named by its letter. Each path has a numeric length written near its midpoint. Click to continue."
+          break;
+
+          case -1:
+          phase = 0
+          message = "The red numbers by each point is its tentative distance from our initial point (point A). INF represent infinity."
+          message2 = "Until we find a path to each point, the distance is infinite. The distance from point A to point A is 0. Select point A to begin."
+          break;
+
           case 0:
           phase = 1
-          message = "Calculate the new tentative weights for points that are connected to your current point that have not been solved."
+          message = "Calculate the new tentative distances for points that are connected to your current point that have not been solved."
+          message2 = ""
           phaseCalculatedNodes = []
           phaseNeededNodes = []
           particleSystem.getEdgesFrom(currentNode).forEach(function(e) {
@@ -109,29 +125,46 @@
         ctx.fillStyle = "white"
         ctx.fillRect(0,0, canvas.width, canvas.height)
 
-        // write instructions
-        ctx.font = "16px Helvetica"
-        ctx.fillStyle="#000000"
-        ctx.fillText(message, 0, canvas.height-80)
-
-        
-        particleSystem.eachEdge(function(edge, pt1, pt2){
-          // edge: {source:Node, target:Node, length:#, data:{}}
-          // pt1:  {x:#, y:#}  source position in screen coords
-          // pt2:  {x:#, y:#}  target position in screen coords
-
-          // draw a line from pt1 to pt2
-          ctx.strokeStyle = "rgba(125,20,150, .333)"
-          ctx.lineWidth = 1
-          ctx.beginPath()
-          ctx.moveTo(pt1.x, pt1.y)
-          ctx.lineTo(pt2.x, pt2.y)
-          ctx.stroke()
-
+        if (phase == -2) {
+          ctx.font = "20px Helvetica"
+          ctx.fillStyle="#000000"
+          ctx.fillText("Dijkstra's Algorithm:", 40, 40)
+          ctx.font = "18px Helvetica"
+          ctx.fillStyle="#000000"
+          ctx.fillText("A method to find the shortest path between two points in a graph", 40, 80)
           ctx.font = "16px Helvetica"
-          ctx.fillStyle="#000000";
-          ctx.fillText(edge.data.weight, (pt1.x + pt2.x)/2, (pt1.y + pt2.y)/2)
+          ctx.fillStyle="#000000"
+          ctx.fillText("This interactive tutorial will explain to you how Dijkstra's Algorithm works.", 40, 140)
+          ctx.fillText("The algorithm is used to find the shortest path between a starting point and the rest of the points in a graph.", 40, 160)
+          ctx.fillText("Graphs consists of points (or nodes) that are connected by paths (or edges).", 40, 180)
+          ctx.fillText("Not every point has to be directly connected to every other point. However, each point can be reached from any other point", 40, 200)
+          ctx.fillText("by taking a connected path from point to point. Each of these paths has a known numeric length.", 40, 220)
+          ctx.fillText("Click to continue.", 40, 260)
+        } else {
 
+          // write instructions
+          ctx.font = "16px Helvetica"
+          ctx.fillStyle="#000000"
+          ctx.fillText(message, 0, canvas.height-100)
+          ctx.fillText(message2, 0, canvas.height-80)
+
+          
+          particleSystem.eachEdge(function(edge, pt1, pt2){
+            // edge: {source:Node, target:Node, length:#, data:{}}
+            // pt1:  {x:#, y:#}  source position in screen coords
+            // pt2:  {x:#, y:#}  target position in screen coords
+
+            // draw a line from pt1 to pt2
+            ctx.strokeStyle = "rgba(125,20,150, .333)"
+            ctx.lineWidth = 1
+            ctx.beginPath()
+            ctx.moveTo(pt1.x, pt1.y)
+            ctx.lineTo(pt2.x, pt2.y)
+            ctx.stroke()
+
+            ctx.font = "16px Helvetica"
+            ctx.fillStyle="#000000";
+            ctx.fillText(edge.data.weight, (pt1.x + pt2.x)/2, (pt1.y + pt2.y)/2)
         })
 
         particleSystem.eachNode(function(node, pt){
@@ -153,13 +186,16 @@
           ctx.fillStyle="#000000"
           ctx.fillText(node.name, pt.x-width/2, pt.y-width/2 - 5)
 
-          tw = (node.data.tw)==-1 ? "INF" : node.data.tw
+          if (phase >= 0) {
+            tw = (node.data.tw)==-1 ? "INF" : node.data.tw
 
-          ctx.font = "14px Helvetica"
-          ctx.fillStyle="#FF0000"
-          ctx.fillText(tw, pt.x-width/2, pt.y + width + 10)
+            ctx.font = "14px Helvetica"
+            ctx.fillStyle="#FF0000"
+            ctx.fillText(tw, pt.x-width/2, pt.y + width + 10)
+          }
 
-        })                            
+        }) 
+        }                           
       },
       
       initMouseHandling:function(){
@@ -173,6 +209,13 @@
             var pos = $(canvas).offset();
             _mouseP = arbor.Point(e.pageX-pos.left, e.pageY-pos.top)
             nearest = particleSystem.nearest(_mouseP);
+            if (phase == -2) {
+              that.nextStep()
+              return
+            } else if (phase == -1) {
+              that.nextStep()
+              return
+            }
 
             if (nearest.node.data.hovered) {
               var node = nearest.node
@@ -235,13 +278,11 @@
               }
             }
 
-            // $(canvas).bind('mousemove', handler.dragged)
-            // $(window).bind('mouseup', handler.dropped)
-
             return false
           },
             moved:function(e){
               particleSystem.start()
+              if (phase < 0) return
 
               var pos = $(canvas).offset();
              _mouseP = arbor.Point(e.pageX-pos.left, e.pageY-pos.top)
@@ -351,7 +392,7 @@
     })
     shortest.target.data.isNextShortest = true
 
-    phase = 0
+    phase = -2
 
     // or, equivalently:
     //
