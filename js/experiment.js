@@ -51,6 +51,7 @@ function endExperiment() {
 	$("iframe").hide();
 	$("#timer").hide();
 	$("#end-message").show();
+	if (group==2) $("iframe").attr("src","");
 }
 function timer() {
 	var minutes = Math.floor(time/60);
