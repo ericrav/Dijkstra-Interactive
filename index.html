@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dijkstra's Algorithm</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" ></script>
+	<script src="js/Curry-1.0.1.js"></script>
+	<script src="js/raphael-min.js"></script>
+	<script src="js/seedrandom.js"></script>
+	<script src="js/dracula_algorithms.js"></script>
+	<script src="js/dracula_graffle.js"></script>
+	<script src="js/dracula_graph.js"></script>
+	<script type="text/javascript">
+		var redraw;
+var height = 300;
+var width = 400;
+
+/* only do all this when document has finished loading (needed for RaphaelJS */
+window.onload = function() {
+
+    var g = new Graph();
+
+g.addEdge("cherry", "apple", {weight: 32});
+g.addEdge("strawberry", "cherry", {weight: 13});
+g.addEdge("strawberry", "apple", {weight: 13});
+g.addEdge("strawberry", "tomato", {weight: 13});
+g.addEdge("tomato", "apple", {weight: 5, stroke: "#a51"});
+g.addEdge("cherry", "kiwi", {weight: 8, stroke: "#a51"});
+g.addEdge("tomato", "kiwi", {weight: 13});
+
+
+
+    /* layout the graph using the Spring layout implementation */
+    var layouter = new Graph.Layout.Spring(g);
+    layouter.layout();
+    
+    /* draw the graph using the RaphaelJS draw implementation */
+    var renderer = new Graph.Renderer.Raphael('canvas', g, width, height);
+
+    for(e in g.edges) {
+        g.edges[e].style = { label : g.edges[e].weight };
+        if(g.edges[e].target.predecessor === g.edges[e].source || g.edges[e].source.predecessor === g.edges[e].target) {
+            g.edges[e].style.stroke = "#bfa";
+            g.edges[e].style.fill = "#56f";
+        } else {
+            g.edges[e].style.stroke = "#aaa";
+        }
+    }
+
+    renderer.draw();
+
+
+    
+    redraw = function() {
+        layouter.layout();
+        renderer.draw();
+    };
+};
+
+-->
+    </script>
+</header>
+<body>
+<div id="canvas"></div>
+<button id="redraw" onclick="redraw();">redraw</button>
+</body>
+
+</html>
