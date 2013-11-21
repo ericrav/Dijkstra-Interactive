@@ -12,7 +12,7 @@ $(document).ready(function(){
 				break;
 				case 2: //video
 				$("iframe").attr("src","http://ericrav.github.io/Dijkstra-Interactive/Dijkstras_Algorithm.mp4")
-				$("iframe").contents().find("video").pause();
+				$("iframe").contents().find("video").get(0).pause();
 				break;
 				case 3: //interactive
 				$("iframe").attr("src","http://ericrav.github.io/Dijkstra-Interactive/")
@@ -40,7 +40,7 @@ $(document).ready(function(){
 			$("button").hide();
 			$("iframe").show();
 			$("#timer").show();
-			if (group==2) $("iframe").contents().find("video").play();
+			if (group==2) $("iframe").contents().find("video").get(0).play();
 			timer();
 			counter = setInterval(timer,1000);
 		}
