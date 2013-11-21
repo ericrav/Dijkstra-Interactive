@@ -39,7 +39,7 @@ $(document).ready(function(){
 			$("button").hide();
 			$("iframe").show();
 			$("#timer").show();
-			if (group==2) $("iframe").attr("src","http://ericrav.github.io/Dijkstra-Interactive/Dijkstras_Algorithm.mp4");
+			if (group==2) $("iframe").attr("src","http://ericrav.github.io/Dijkstra-Interactive/DijkstrasAlgorithm.mp4");
 			timer();
 			counter = setInterval(timer,1000);
 		}

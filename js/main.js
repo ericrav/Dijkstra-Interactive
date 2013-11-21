@@ -77,8 +77,8 @@
 
           case 0:
           phase = 1
-          message = "Calculate the new tentative distances for points that are connected to your current point that have not been solved."
-          message2 = ""
+          message = "Find the new tentative distances to each point connected to your current point if its shortest path has not already been found."
+          message2 = "Calculate this distance by summing the shortest distance to your current point with the length of the path to each point."
           phaseCalculatedNodes = []
           phaseNeededNodes = []
           particleSystem.getEdgesFrom(currentNode).forEach(function(e) {
@@ -101,7 +101,8 @@
           })
           shortest.data.isNextShortest = true
           console.log(shortest)
-          message = "Now select the point with the shortest tentative length from your current point."
+          message = "Now select the point with the shortest tentative length from all of your unsolved points."
+          message2 = "We know that this number will be that point's shortest possible distance because all other paths will be longer."
           break;
 
           case 2:
@@ -237,7 +238,7 @@
                   } else if (phaseCalculatedNodes.indexOf(node) == -1) {
                     var userTentativeWeight = prompt("What is the new distance from Point A to Point " + node.name + "?")
                     if (userTentativeWeight == currentNode.data.tw + that.getEdgeWeightBetween(currentNode, node)) {
-                      if (userTentativeWeight <= node.data.tw || node.data.tw == -1) {
+                      if (userTentativeWeight < node.data.tw || node.data.tw == -1) {
                         alert("Correct!")
                         node.data.tw = parseInt(userTentativeWeight)
                         phaseCalculatedNodes.push(node)
@@ -246,11 +247,11 @@
                         }
                       }
                       else {
-                        alert("That's right, but you've already found a shorter path to this point.")
+                        alert("That's right, but you've already found a shorter path to this point so we will not update the tentative distance.")
                       }
 
                     } else if (userTentativeWeight != null) {
-                      alert("That's not right.")
+                      alert("That's not right. Add the length of the path to this point to the shortest distance you found to point " +currentNode.name + ".")
                     }
                   } else {
                     alert("You've already calculated this tentative distance.")
@@ -264,9 +265,9 @@
 
                 case 2:
                 if (node.data.visited) {
-                  alert("You already visited this node!")
+                  alert("You have already solved the shortest distance to this point!")
                 }else if (node.data.isNextShortest) {
-                  alert("right!")
+                  alert("That's right! Now we know that this tentative distance is the correct shortest distance because every other path you have will sum to a greater distance.")
                   node.data.visited = true
                   visitedNodes.push(node)
                   var i = unvisitedNodes.indexOf(node)
@@ -274,7 +275,7 @@
                   currentNode = node
                   that.nextStep()
                 } else {
-                  alert("wrong")
+                  alert("That's not right. Look at all your unsolved points (black). Which has the least tentative distance (red number)?")
                 }
                 break;
               }
