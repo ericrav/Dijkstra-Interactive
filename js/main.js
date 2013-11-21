@@ -87,7 +87,10 @@
           particleSystem.getEdgesTo(currentNode).forEach(function(e) {
             if (!e.source.data.visited && ((currentNode.data.tw + that.getEdgeWeightBetween(currentNode, e.source)) < e.source.data.tw || e.source.data.tw == -1)) phaseNeededNodes.push(e.source);
           })
-          console.log(phaseNeededNodes)
+          if (phaseNeededNodes.length == 0) {
+            phase = 3;
+            that.nextStep();
+          }
           break;
 
           case 1:
@@ -100,7 +103,6 @@
             }
           })
           shortest.data.isNextShortest = true
-          console.log(shortest)
           message = "Now select the point with the shortest tentative length from all of your unsolved points."
           message2 = "We know that this number will be that point's shortest possible distance because all other paths will be longer."
           break;
@@ -108,6 +110,11 @@
           case 2:
           phase = 0
           that.nextStep()
+          break;
+
+          case 3:
+          message = "We have now found the shortest distance from point A to each point."
+          message2 = "Click to start over."
           break;
 
         }
@@ -216,6 +223,11 @@
             } else if (phase == -1) {
               that.nextStep()
               return
+            } else if (phase == 3) {
+              phase = -2;
+              currentNode = initialNode;
+              location.reload();
+              return;
             }
 
             if (nearest.node.data.hovered) {
